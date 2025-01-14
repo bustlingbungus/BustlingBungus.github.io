@@ -32,12 +32,27 @@
         <h2 is-upgraded>Table of Contents</h2>
 <ol type="1">
 <li>Overview (this page)</li>
+<li>Environment Setup (VSCode)</li>
+<li>C++ Installation for Windows</li>
+<li>C++ Installation for MacOS</li>
+<li>Setting up C++ in VSCode, and testing</li>
+<li>Setting up CMake</li>
+<li>Setting up git (optional)</li>
+<li>Downloading SDL Libraries</li>
+<li>Testing Build Flow</li>
+<li>Conclusion</li>
 </ol>
+<h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>In this tutorial, you&#39; learn how to set up C++ on your computer on VSCode. You&#39;ll learn how to set up CMake on your computer, and build a C++ project using CMake. You&#39;ll install SDL libraries onto your computer, you&#39;ll learn how to include those libraries in VSCode. By the end of this tutorial, you&#39;ll be able to build a C++ SDL project using CMake in VSCode.</p>
+<p>Some may be able to skip parts of this tutorial. For instance, people who already have C++ set up may skip to page 6. People who already have CMake may skip to page 7, and people who already have git may skip page 7 as well.</p>
+<aside class="warning"><p> This is NOT a tutorial of how to code in C++, or how to use CMake, or how to use the SDL API. This is just a tutorial on how to set these things up, so that you can get STARTED working on projects using them.</p>
+</aside>
+<p class="image-container"><img alt="awesome" src="img\\5bf28fc68a79c320.gif"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Environment Setup" duration="0">
+      <google-codelab-step label="Environment Setup" duration="3">
         <h2 is-upgraded>Install VSCode</h2>
 <p>For this tutorial, we&#39;ll be using VSCode to edit code, and it&#39;s terminal to run commands.</p>
 <aside class="special"><p> If you use some enviroment other than VSCode, this tutorial will probably still work.</p>
@@ -48,14 +63,258 @@
 <li>Make sure ALL these boxes are checked!</li>
 </ul>
 <p class="image-container"><img alt="Enable all flags for installation" src="img\\c9186b3272fe77d5.PNG"></p>
+<aside class="warning"><p> The following few slides are just instructions for setting up C++ with VSCode. If you&#39;d rather a video tutorial for this, here are some good resources</p>
+</aside>
+<p>Video instructions for Windows: <a href="https://www.youtube.com/watch?v=DMWD7wfhgNY&ab_channel=KennyYipCoding" target="_blank">https://www.youtube.com/watch?v=DMWD7wfhgNY&amp;ab_channel=KennyYipCoding</a></p>
+<p>Video instructions for MacOS: <a href="https://www.youtube.com/watch?v=tdAD0WZjXrM&ab_channel=CodeWizard" target="_blank">https://www.youtube.com/watch?v=tdAD0WZjXrM&amp;ab_channel=CodeWizard</a></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Install A C&#43;&#43; Compiler (WINDOWS)" duration="0">
+      <google-codelab-step label="Install A C&#43;&#43; Compiler (WINDOWS)" duration="15">
         <aside class="warning"><p> If you&#39;re using macOS, go to the next page!</p>
 </aside>
+<h2 is-upgraded>Install MSYS2</h2>
 <p>We&#39;ll be using MSYS2 for our C++ compiler. Download the MinGW installer with <a href="https://github.com/msys2/msys2-installer/releases/download/2024-12-08/msys2-x86_64-20241208.exe" target="_blank">this</a> link.</p>
+<p>Open the installer, and run through the steps to set up your compiler.</p>
+<aside class="special"><p> Note: MSYS2 will by default install into C:\msys64. Remember this for later!!!!! (if for some reason you change the folder, also remember where you installed it).</p>
+</aside>
+<p>On every page, just click next without changing anything. On the final page, make sure the <code>Run MSYS2 now.</code> box is checked, and press <code>Finish</code>. This will open up the MSYS2 shell.</p>
+<h2 is-upgraded>Install MinGW Toolchain</h2>
+<p class="image-container"><img alt="The MSYS2 shell" src="img\\403e155773b755ea.PNG"></p>
+<aside class="warning"><p> If the shell doesn&#39;t open, or you closed it or something, just go to the Windows search bar and search for <code>MSYS2</code>, and run the app.</p>
+</aside>
+<p>In this terminal, install the MinGW-w64 toolchain by running the following command:</p>
+<pre><code language="language-Arch" class="language-Arch">pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+</code></pre>
+<p>Press enter. The terminal will ask you for a download selection. Download everything, by just pressing <code>Enter</code>.</p>
+<p class="image-container"><img alt="Press Enter to download all" src="img\\b1d2adbb4305b779.PNG"></p>
+<p>When asked to proceed with the installation, type <code>Y</code>, then press <code>Enter</code>.</p>
+<p class="image-container"><img alt="Enter Y to proceed with the installation" src="img\\656d1d03329934ca.PNG"></p>
+<p>Once the installation is completed, you may exit the MSYS2 window.</p>
+<h2 is-upgraded>Add MinGW to enviroment variables</h2>
+<p>For everything to work, we need to make the C++ compiler an &#34;enviroment variable&#34;. Go to the Windows search bar, and look for &#34;environment variables&#34;, and open the first option.</p>
+<p class="image-container"><img alt="The menu to open" src="img\\cf06406985c8decd.PNG"></p>
+<p>From here, click &#34;Environment Variables&#34;.</p>
+<p class="image-container"><img alt="Press this button" src="img\\e0208224760cfc78.PNG"></p>
+<p>Then in the top box, click &#34;Path&#34;, then click &#34;Edit&#34;.</p>
+<p class="image-container"><img alt="Edit the system path" src="img\\399ac991c82387ef.PNG"></p>
+<p>You want to add the following directory to your path:</p>
+<pre><code language="language-Directory" class="language-Directory">C:\msys64\ucrt64\bin
+</code></pre>
+<aside class="warning"><p> If you changed the installation folder when installing MSYS2, replace the <code>C:\msys64</code> with whatever folder you installed MSYS2 in. Leave the <code>\ucrt64\bin</code> at the end of the directory.</p>
+</aside>
+<p>To add to path, press &#34;New&#34;, then paste in that directory, and press &#34;Enter&#34;.</p>
+<p class="image-container"><img alt="Add the directory to System PATH" src="img\\522578d711b7cb52.PNG"></p>
+<p>Press &#34;Ok&#34;, then exit the environment variables window.</p>
+<ul>
+<li>If for some reason you don&#39;t have a &#34;Path&#34; variable in the top box, press &#34;New&#34;, then enter &#34;Path&#34; for the <code>Variable name</code>, and paste the directory for the <code>Variable value</code>, the click &#34;Ok&#34;.</li>
+</ul>
+<p class="image-container"><img alt="Do this if you don&amp;rsquo;t have Path" src="img\\c3951fb6ad2e517c.PNG"></p>
+<h2 is-upgraded>Checking Installation</h2>
+<p>Let&#39;s confirm everything installed correctly by checking that compiler commands work. Open up a command prompt from the windows menu.</p>
+<aside class="special"><p> You could also do this in the VSCode terminal if you wanted. It&#39;s just VSCode terminal can sometimes be weird for no reason, command prompt is more reliable.</p>
+</aside>
+<p class="image-container"><img alt="Open the command terminal" src="img\\f95ce76f8e65d105.PNG"></p>
+<p>To check if the compilers are all working, run these commands one at a time in the terminal:</p>
+<pre><code language="language-cmd" class="language-cmd">gcc --version
+g++ --version
+gdb --version
+</code></pre>
+<p>The output should look something like this:</p>
+<p class="image-container"><img alt="successful version output" src="img\\539d9ade4d0514d1.PNG"></p>
+<aside class="special"><p> The actual version numbers and stuff don&#39;t really matter. We&#39;re just checking to make sure the commands actually work.</p>
+</aside>
+<p>If you get some kind of error for the output, make sure everything was installed correctly. Go back and make sure <code>C:\msys64\ucrt64\bin</code> was added to the &#34;Path&#34; system environment variable, then try again.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install A C&#43;&#43; Compiler (MAC)" duration="3">
+        <aside class="warning"><p> If you&#39;re on Windows, don&#39;t worry about this!</p>
+</aside>
+<h2 is-upgraded>Install Clang through terminal</h2>
+<p>Press <code>Cmd+Space</code>, look for &#34;terminal&#34;, and open the terminal app. Let&#39;s start by checking if clang has already been set up. Run this command in the terminal:</p>
+<pre><code language="language-Clang" class="language-Clang">clang --version
+</code></pre>
+<p>If clang has already been set up, you should get an output like this:</p>
+<p class="image-container"><img alt="Successful version output" src="img\\ba7a9ebe8091e862.PNG"></p>
+<p>If you get get an error of some kind, then you have to install the xcode command line tools. To do this, run this command:</p>
+<pre><code language="language-cmd" class="language-cmd">xcode-select --install
+</code></pre>
+<p>After this finishes, run <code>clang --version</code> again, to make sure it works</p>
+<p>aside  positive The actual version number shouldn&#39;t matter too much, we&#39;re just making sure the command actually works.</p>
+<aside class="warning"><p> I do not own a MacOS device. I have tried my best to provide functionality for Mac based on information found online, but without the ability to test this myself, I cannot on my own confirm the instructions in this tutorial are foolproof. If there is some error, I would reccomend contacting me to see what changes need to be made.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="VSCode Extensions and Compilation Check" duration="7">
+        <h2 is-upgraded>VSCode extensions for C++</h2>
+<aside class="special"><p> In this step we&#39;re setting up the extensions to allow VSCode to edit C++ code. If you&#39;re using an environment other than VSCode, please perform whatever additional setup is required for your environment.</p>
+</aside>
+<p>Open up VSCode. Go to the &#34;Extensions&#34; page on the right. In the search bar, type &#34;C++&#34;, and install this extension:</p>
+<p class="image-container"><img alt="Main C++ extension" src="img\\7b008cde38f76439.PNG"></p>
+<p>Also make sure to install this &#34;Code Runner&#34; extension:</p>
+<p class="image-container"><img alt="This is for actually running code in VSCode" src="img\\d5d6750dce909681.PNG"></p>
+<aside class="warning"><p> Note: These will not be the last extensions we install in this tutorial.</p>
+</aside>
+<h2 is-upgraded>Testing C++</h2>
+<aside class="special"><p> The good news is this is the only programming I&#39;m gonna ask you guys to do. We just need to make sure you&#39;ll be able to compile my code later on :)</p>
+</aside>
+<p>In the top left corner of VSCode, select <code>File->New Text File</code>. In the editor, click, &#34;Select a Language&#34;, Then choose &#34;C++&#34;</p>
+<p class="image-container"><img alt="Create a new C++ file" src="img\\11394cbeb9631cf0.PNG"></p>
+<p>Before making any edits, go to <code>File->Save As</code>, and save the new file wherever you want (we&#39;re gonna delete it when we&#39;re done anyways). Name the file &#34;test&#34; (or whatever you want).</p>
+<p>Now go to the editor, and just paste this code:</p>
+<pre><code language="language-C++" class="language-C++">#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; &#34;Hello World!\n&#34;;
+    return 0;
+}
+</code></pre>
+<p>Now save the changes, and in the top right, there should be a little play button with a drop down arrow. Press the drop down arrow, and choose &#34;Run Code&#34;. If a list of compilers pops up, choose the &#34;g++.exe&#34; option (it&#39;ll probably be the first option). If you&#39;re on Mac, this will probably be a &#34;clang&#34; option, instead.</p>
+<p class="image-container"><img alt="Choose this option" src="img\\9a0746a20ef665c9.PNG"></p>
+<aside class="warning"><p> If you don&#39;t see the &#34;Run Code&#34; option, choose &#34;Run C/C++ file&#34;. It&#39;s just sometimes this option will show a bunch of debug information that we don&#39;t really care about right now. You should still find &#34;Hello World!&#34; (it may be in the Output or Debug Console tab though, or you can just try running it again).</p>
+</aside>
+<p>If everything ran correctly, you can go ahead and delete these test files.</p>
+<h2 is-upgraded>Error Handling</h2>
+<p>If the code doesn&#39;t print &#34;Hello World&#34;, look at the error message in the terminal. If you&#39;re getting some kind of undefined reference error, there is an issue with your installation of the C standard library. Ensure you properly installed the MinGW toolkit, and added it to your environment variables. This could also be caused by using the &#34;gcc&#34; compiler for the C++ file, ensure you chose the &#34;g++.exe&#34; compiler option (clang on mac).</p>
+<p>If there is an error along the lines of &#34;g++ is not recognized&#34;, there is likely an issue with the installation of the compiler. Ensure all installation steps in this tutorial were follwed correctly. Sometimes, the VSCode terminal can throw errors that the Command Prompt won&#39;t. Open the command promp and test to see if the <code>g++ --version</code> command throws an error (<code>clang --version</code> for mac). If it doesn&#39;t, then it&#39;s probably VSCode that&#39;s messed up. Try <code>alf+f4</code>ing VSCode, then reopening it and trying again.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setting up CMake" duration="20">
+        <p>CMake is the tool we&#39;ll use to make building the project quick and easy. To get it, first download the CMake installer at <a href="https://cmake.org/download/" target="_blank">this site</a>, under &#34;Binary Distributions&#34;.</p>
+<p>In my experience, this is one of the most frustrating parts of this process, so please feel free to reach out!</p>
+<aside class="special"><p> Be sure to download the right version for your computer. Mac users download the .dmg installer, and Windows users the .msi installer.</p>
+</aside>
+<aside class="warning"><p> FOR WINDOWS USERS: CMake should automatically add itself to the system&#39;s PATH environment variable. If for some reason it doesn&#39;t, this will cause issues later. If you want to check now, just go to &#34;edit the system environment variables -&gt; Environment Variables -&gt; Path -&gt; Edit&#34;, and check that <code>C:\Program Files\CMake\bin</code> is present. If it isn&#39;t you should add it. (Note: if you changed CMake&#39;s install location, <code>C:\Program Files</code> may be different).</p>
+</aside>
+<h2 is-upgraded>Confirm Installation</h2>
+<p>To confirm you&#39;ve successfully installed CMake, open the command terminal, and type this command:</p>
+<pre><code language="language-cmd" class="language-cmd">cmake --version
+</code></pre>
+<p>You should get this output:</p>
+<p class="image-container"><img alt="Successful CMake installation" src="img\\529459fc10db4da6.PNG"></p>
+<aside class="special"><p> This could also be run from the VSCode terminal, but again, the VSCode terminal can sometimes throw errors for no reason.</p>
+</aside>
+<p>Like before, the actual version number doesn&#39;t really matter, we&#39;re just making sure the command works. If it doesn&#39;t, ensure you downloaded the right installer for your computer from the website. Windows users, ensure cmake actually added it to the system&#39;s Path environment variables.</p>
+<h2 is-upgraded>CMake Tools Extension</h2>
+<p>Let&#39;s add another VSCode extension so we can develop with CMake. Install the &#34;CMake Tools&#34; extension:</p>
+<p class="image-container"><img alt="Install the CMake Tools extension" src="img\\4bab53ae640ab62a.PNG"></p>
+<p><a href="https://www.youtube.com/watch?v=_BWU5mWqVA4&ab_channel=VisualStudioCode" target="_blank">Here</a> is a link to a good video resource for setting up CMake. Skip to <code>1:26</code> for the installation steps.</p>
+<h2 is-upgraded>Testing CMake</h2>
+<p>With everything installed, let&#39;s test an actual CMake build. Instead of making you actually code anything, just download <a href="https://drive.google.com/uc?export=download&id=1PwXVAFgfhf8LnbfV1VGspMr4_zal9n0b" target="_blank">this</a> .zip file to test with. Extract the folder anywhere, then open it in VSCode. Your VSCode should look like this:</p>
+<p class="image-container"><img alt="Open the folder in VSCode" src="img\\5d1e07ca6e640b89.PNG"></p>
+<p>At the top of the window, click on the bar that says &#34;CMake Test&#34;, then select &#34;Show and Run Commands&#34;. Type &#34;CMake: Select a Kit&#34;, and press enter. Select &#34;Scan for kits&#34;. Once it&#39;s done, click on the bar again, select &#34;Show and Run Commands&#34; again, and select &#34;CMake: Select a Kit&#34; again.</p>
+<ul>
+<li>Sorry for poor image quality here :(</li>
+</ul>
+<p class="image-container"><img alt="Show and Run Commands" src="img\\1e2c699709425233.PNG"></p>
+<p class="image-container"><img alt="Scan for kits" src="img\\6e120a49ec5ebed1.PNG"></p>
+<p class="image-container"><img alt="Picking Compiler" src="img\\4094c77fcce25cb5.PNG"></p>
+<aside class="warning"><p> There will probably only be one locally installed option below <code>[unspecified]</code>. This option represents the compiler we installed earlier. If there are multiple options, select the desired compiler (if you&#39;re not sure which, you can always guess and check c:). Windows users choose the <code>mingw</code> option, if it&#39;s available. We only want to use locally installed compilers, so don&#39;t pick any of the options that say &#34;Visual Studio Build Tools&#34; or anything like that.</p>
+</aside>
+<p>On the terminal at the bottom of the screen, click on the &#34;TERMINAL&#34; tab to start entering commands.</p>
+<p>Now, in the terminal, type these four commands one at a time:</p>
+<pre><code language="language-cmd" class="language-cmd">cd build
+cmake ..
+cmake --build
+./bin\test.exe
+</code></pre>
+<p>The output should say &#34;Hello World!&#34;, like this:</p>
+<p class="image-container"><img alt="Successful CMake build" src="img\\a581661aa0b6ce0c.PNG"></p>
+<p>If the output fails, and this doesn&#39;t happen, make sure the correct kit was selected in the last step. If the terminal says something like &#34;cmake is not a recognized command&#34;, ensure <code>cmake --version</code> works in the command prompt terminal, and try <code>alt+f4</code>ing VSCode and retrying the process. Also ensure you are sunning the final three commands from the &#34;build&#34; folder.</p>
+<aside class="special"><p> Don&#39;t worry, building won&#39;t be this complicated from here on out. For the actual project there&#39;s a task that automates this whole process with one button press, so you won&#39;t have to enter any commands :)</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setting up git (OPTIONAL)" duration="0">
+        <p>This page is a WIP</p>
+<p>git is optional for this tutorial, but is strongly reccomended for development in general.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setting Up SDL" duration="20">
+        <h2 is-upgraded>Installation</h2>
+<p>Simple Directmedia Layer (SDL) is the graphics rendering API that the engine uses to render images and play sounds. We&#39;re actually going to install four libraries in order to build this project. Below are the libraries, and links to their download pages.</p>
+<ol type="1">
+<li><a href="https://github.com/libsdl-org/SDL/releases/tag/release-2.30.11" target="_blank">SDL</a> - The main rendering API</li>
+<li><a href="https://github.com/libsdl-org/SDL_image/releases/tag/release-2.8.4" target="_blank">SDL_image</a> - Used for loading images from file</li>
+<li><a href="https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.24.0" target="_blank">SDL_ttf</a> - Used for rendering text</li>
+<li><a href="https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.8.0" target="_blank">SDL_mixer</a> - Used for playing audio</li>
+</ol>
+<p>On these download pages, there will be a bunch of different installation options. Choose the installation option fit for your computer architecture. For development, I reccomend choosing one of the .zip files containing &#34;devel&#34;. In this tutorial, I installed the <code>SDL2-devel-2.30.11-mingw.zip</code> option.</p>
+<p class="image-container"><img alt="Choose the correct option for your system" src="img\\afdc3b5df18eb179.PNG"></p>
+<h2 is-upgraded>File Management</h2>
+<p>Create a folder for libraries, called <code>Libraries</code>, anywhere on your computer (Note: if you already have a dedicated folder for programming libraries, you may use that one). This is where we will store the SDL libraries. I put this folder in <code>C:\msys64\</code>, for convenience, but it could go anywhere.</p>
+<p>Once you have downloaded and extracted all of the SDL library zip files, open the extracted folder for SDL2, and go into <code>SDL2-2.30.11</code>.</p>
+<p class="image-container"><img alt="Folder to enter" src="img\\99319e6a3b31e6ee.PNG"></p>
+<p>In this folder, there will be a couple of folders. Select the correct folder for your system architecture. In this tutorial, I chose <code>i686-w64-mingw32</code>. Take this folder, and move it into your <code>Libraries</code> folder.</p>
+<aside class="special"><p> If you chose the VC option, or some other option without these folders, this step won&#39;t apply, just select the base <code>SDL2-2.30.11</code> folder, and move that into your <code>Libraries</code> folder.</p>
+</aside>
+<p>I&#39;d reccomend renaming the folder you moved to <code>SDL</code>, since it will make organisation easier later.</p>
+<p class="image-container"><img alt="SDL library placed in the Libraries folder" src="img\\99319e6a3b31e6ee.PNG"></p>
+<p>Repeat this process for the other three SDL libraries you installed. Name the moved folders <code>SDL_image</code>, <code>SDL_ttf</code>, and <code>SDL_mixer</code> respectively.</p>
+<p class="image-container"><img alt="The complete library folder" src="img\\667dee40e00c5b50.PNG"></p>
+<h2 is-upgraded>Adding Environment Variables (WINDOWS)</h2>
+<aside class="warning"><p> Mac users, skip to the next subtitle!</p>
+</aside>
+<p>In each of the folders you moved into your <code>Libraries</code> folder, there will be a <code>bin</code> folder. This is the directory that you will need to add to your system&#39;s Path environment variabele.</p>
+<p class="image-container"><img alt="The bin folder" src="img\\5a7064fbb9eb5e99.PNG"></p>
+<p>In the Windows search bar, look for and open &#34;Edit the system environment variables&#34;. Press <code>Environment Variables</code>, then in the top box, click <code>Path</code>, then press <code>Edit</code>, then click <code>New</code>.</p>
+<p class="image-container"><img alt="Adding environment variable" src="img\\b2a7ca506c710a74.PNG"></p>
+<p>As mentioned before, each of the SDL libraries will have a <code>bin</code> subfolder. Add all four of these directories to the Path.</p>
+<p class="image-container"><img alt="SDL folders in the Path" src="img\\93c3b527746b991f.PNG"></p>
+<p>Press &#34;Ok&#34;, and exit the environment variable editor.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Testing Build Flow" duration="60">
+        <p>With everything installed and set up, we should theoretically be done. Of course, we&#39;ll have to test to make sure that everything links and builds correctly. start by cloning this SDL baseplate project.</p>
+<aside class="warning"><p> We&#39;ll use git to make installing easy. If you don&#39;t have git set up, you can just download the baseplate from <a href="https://github.com/bustlingbungus/SDL2_Boilerplate" target="_blank">here</a> (press &#34;Code-&gt;Download ZIP&#34; then open the folder in VSCode).</p>
+</aside>
+<p>We&#39;re using this simpler SDL boilerplate because it&#39;ll be easier to debug if something goes wrong. Clone the baseplate into any folder by running this command from said folder:</p>
+<pre><code language="language-bash" class="language-bash">git clone https://github.com/bustlingbungus/SDL2_Boilerplate.git
+</code></pre>
+<aside class="special"><p> If you have SSH keys set up with Github, it&#39;s reccomended to go to the repository and clone using the SSH option instead.</p>
+</aside>
+<h2 is-upgraded>Edit CMakeLists.txt (WINDOWS)</h2>
+<aside class="special"><p> Mac users shouldn&#39;t have to worry about this step. Go to the <code>Building Project</code> subtitle.</p>
+</aside>
+<p>Go to <code>CMakeLists.txt</code>. In the section near the top where you see string directories, these need to be changed to where ever you stored SDL libraries on your computer. On line <code>10</code>, se the string to the directory of your <code>Libraries</code> folder, where you&#39;re keeping the SDL libraries. For the next four lines, just make sure the main folder names are the same as yours. I.e., line 12 has &#34;${...}/<code>SDL_Image</code>/...&#34;, so ensure your library folder containing SDL_image is called <code>SDL_Image</code>.</p>
+<p class="image-container"><img alt="The lines to edit" src="img\\c5e9ddccca88fea9.PNG"></p>
+<h2 is-upgraded>Building Project</h2>
+<p>Now enter this folder you created in VSCode. Select the appropriate CMake kit, as we did on page 7. Run these five commands in the VSCode terminal (also like we did on page 7).</p>
+<pre><code language="language-cmd" class="language-cmd">cd build
+cmake ..
+cmake --build .
+cd bin
+./project.exe
+</code></pre>
+<p>You should see a window open, like this:</p>
+<p class="image-container"><img alt="Successful build flow" src="img\\d52b226e157f1716.PNG"></p>
+<p>If you get a result like this, you&#39;re good to go! You shouldn&#39;t need to do any more setup. If you successfully build this project, you should have no trouble building any of my other SDL projects.</p>
+<p>If you get an error, ensure all the steps were followed correctly. Ensure all SDL include directories are included in your include path. Windows users, ensure SDL bin directories are in the environment path. Ensure the SDL library files you installed form the website is the correct version to install for your computer.</p>
+<h2 is-upgraded>Build Automation</h2>
+<p>As mentioned earlier, this build process will be automated with the press of a button. Included in the repository is <code>.vscode/tasks.json</code>. You don&#39;t need to edit this at all, it&#39;s just the file that tells VSCode to run all the commands you just did. On VSCode, press <code>Ctrl+Shift+B</code> this should build the project automatically, and you&#39;ll get the same result as before. Way more convenient than typing a bunch of terminal commands!</p>
+<aside class="warning"><p> If you use an environment other than VSCode, these build tasks probably won&#39;t be very helpful. I&#39;d reccomend seeing if you&#39;re environment supports build automation like this, since it really helps in speeding up the development process.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Conclusion" duration="0">
+        <p class="image-container"><img alt="LETSGOOOO" src="img\\9235abe4c520301b.jpg"></p>
+<p>If you successfully build the project on the last slide, then you should now be able to build any SDL project easily using CMake. The hard part is over, you can now get to actual development.</p>
+<p>Congrats on making it through, I know setting things like this up with C++ can be an absolute nightmare.</p>
 
 
       </google-codelab-step>
